@@ -15,6 +15,16 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+
+    let fileURL = NSBundle.mainBundle().URLForResource("image", withExtension: "png")
+    let beginImage = CIImage(contentsOfURL: fileURL)
+
+    let filter = CIFilter(name: "CISepiaTone")
+    filter.setValue(beginImage, forKey: kCIInputImageKey)
+    filter.setValue(0.5, forKey: kCIInputIntensityKey)
+
+    let newImage = UIImage(CIImage: filter.outputImage)
+    self.imageView.image = newImage
   }
 
   override func didReceiveMemoryWarning() {
