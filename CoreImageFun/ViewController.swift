@@ -23,7 +23,10 @@ class ViewController: UIViewController {
     filter.setValue(beginImage, forKey: kCIInputImageKey)
     filter.setValue(0.5, forKey: kCIInputIntensityKey)
 
-    let newImage = UIImage(CIImage: filter.outputImage)
+    let context = CIContext(options: nil)
+    let cgimg = context.createCGImage(filter.outputImage, fromRect: filter.outputImage.extent())
+
+    let newImage = UIImage(CGImage: cgimg)
     self.imageView.image = newImage
   }
 
